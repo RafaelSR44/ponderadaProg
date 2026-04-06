@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Histórico – Estação Meteorológica{% endblock %}
+
+{% block content %}
+<h1>Histórico de Leituras</h1>
+
+<table class="tabela">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Temperatura (°C)</th>
+      <th>Umidade (%)</th>
+      <th>Pressão (hPa)</th>
+      <th>Localização</th>
+      <th>Timestamp</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for l in leituras %}
+    <tr>
+      <td>{{ l.id }}</td>
+      <td>{{ l.temperatura }}</td>
+      <td>{{ l.umidade }}</td>
+      <td>{{ l.pressao or "—" }}</td>
+      <td>{{ l.localizacao }}</td>
+      <td>{{ l.timestamp }}</td>
+      <td class="actions">
+        <a class="btn btn-sm btn-edit" href="{{ url_for('editar', leitura_id=l.id) }}">Editar</a>
+        <form method="POST" action="{{ url_for('deletar_view', leitura_id=l.id) }}"
+              onsubmit="return confirm('Deseja excluir a leitura #{{ l.id }}?')">
+          <button type="submit" class="btn btn-sm btn-delete">Excluir</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7" class="empty">Nenhuma leitura encontrada.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="pagination">
+  {% if page > 1 %}
+  <a class="btn" href="{{ url_for('historico', page=page-1) }}">&laquo; Anterior</a>
+  {% endif %}
+  <span>Página {{ page }}</span>
+  {% if leituras | length == 20 %}
+  <a class="btn" href="{{ url_for('historico', page=page+1) }}">Próxima &raquo;</a>
+  {% endif %}
+</div>
+{% endblock %}

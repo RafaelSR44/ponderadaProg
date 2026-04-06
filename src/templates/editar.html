@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Leitura #{{ leitura.id }}{% endblock %}
+
+{% block content %}
+<h1>Editar Leitura <small>#{{ leitura.id }}</small></h1>
+
+<form method="POST" class="form-edit">
+  <div class="form-group">
+    <label for="temperatura">Temperatura (°C)</label>
+    <input type="number" step="0.1" id="temperatura" name="temperatura"
+           value="{{ leitura.temperatura }}" required />
+  </div>
+
+  <div class="form-group">
+    <label for="umidade">Umidade (%)</label>
+    <input type="number" step="0.1" min="0" max="100" id="umidade" name="umidade"
+           value="{{ leitura.umidade }}" required />
+  </div>
+
+  <div class="form-group">
+    <label for="pressao">Pressão (hPa)</label>
+    <input type="number" step="0.1" id="pressao" name="pressao"
+           value="{{ leitura.pressao or '' }}" />
+  </div>
+
+  <div class="form-group">
+    <label for="localizacao">Localização</label>
+    <input type="text" id="localizacao" name="localizacao"
+           value="{{ leitura.localizacao }}" />
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn">Salvar</button>
+    <a class="btn btn-secondary" href="{{ url_for('historico') }}">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

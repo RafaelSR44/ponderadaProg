@@ -1,0 +1,207 @@
+/* ── Reset & base ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f0f4f8;
+  color: #2d3748;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Navbar ────────────────────────────────────────────────── */
+.navbar {
+  background: #1a202c;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2rem;
+}
+
+.nav-brand {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: #cbd5e0;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: #fff; }
+
+/* ── Container ─────────────────────────────────────────────── */
+.container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  flex: 1;
+}
+
+h1 { font-size: 1.8rem; margin-bottom: 1.25rem; color: #1a202c; }
+h2 { font-size: 1.3rem; margin: 1.5rem 0 0.75rem; color: #2d3748; }
+
+/* ── Stats grid ────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  text-align: center;
+}
+
+.card h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #718096;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2b6cb0;
+}
+
+.card small { color: #a0aec0; font-size: 0.78rem; }
+
+/* ── Chart ─────────────────────────────────────────────────── */
+.chart-section {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-bottom: 2rem;
+}
+
+/* ── Table ─────────────────────────────────────────────────── */
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-bottom: 1rem;
+}
+
+.tabela th {
+  background: #2b6cb0;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tabela td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.92rem;
+}
+
+.tabela tr:last-child td { border-bottom: none; }
+.tabela tr:hover td { background: #ebf4ff; }
+
+.empty { text-align: center; color: #a0aec0; padding: 2rem !important; }
+
+/* ── Actions cell ──────────────────────────────────────────── */
+.actions { display: flex; gap: 0.4rem; align-items: center; }
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1.1rem;
+  background: #2b6cb0;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn:hover { background: #2c5282; }
+
+.btn-sm { padding: 0.3rem 0.7rem; font-size: 0.8rem; }
+.btn-edit { background: #38a169; }
+.btn-edit:hover { background: #276749; }
+.btn-delete { background: #e53e3e; }
+.btn-delete:hover { background: #9b2c2c; }
+.btn-secondary { background: #718096; }
+.btn-secondary:hover { background: #4a5568; }
+
+/* ── Pagination ────────────────────────────────────────────── */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* ── Form ──────────────────────────────────────────────────── */
+.form-edit {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  max-width: 500px;
+}
+
+.form-group { margin-bottom: 1.1rem; }
+
+.form-group label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #4a5568;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #2b6cb0;
+  box-shadow: 0 0 0 3px rgba(43,108,176,0.15);
+}
+
+.form-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* ── Footer ────────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: #a0aec0;
+  background: #1a202c;
+  color: #718096;
+}

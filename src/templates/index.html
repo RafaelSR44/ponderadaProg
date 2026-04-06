@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard – Estação Meteorológica{% endblock %}
+
+{% block head %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<!-- Cards de estatísticas -->
+<section class="stats-grid">
+  <div class="card">
+    <h3>Temperatura Média</h3>
+    <p class="stat-value">{{ "%.1f"|format(stats.temp_media or 0) }} °C</p>
+    <small>Min: {{ "%.1f"|format(stats.temp_min or 0) }} °C &nbsp;|&nbsp; Max: {{ "%.1f"|format(stats.temp_max or 0) }} °C</small>
+  </div>
+  <div class="card">
+    <h3>Umidade Média</h3>
+    <p class="stat-value">{{ "%.1f"|format(stats.umidade_media or 0) }} %</p>
+    <small>Min: {{ "%.1f"|format(stats.umidade_min or 0) }} % &nbsp;|&nbsp; Max: {{ "%.1f"|format(stats.umidade_max or 0) }} %</small>
+  </div>
+  <div class="card">
+    <h3>Pressão Média</h3>
+    <p class="stat-value">{{ "%.1f"|format(stats.pressao_media or 0) }} hPa</p>
+  </div>
+  <div class="card">
+    <h3>Total de Leituras</h3>
+    <p class="stat-value">{{ stats.total }}</p>
+  </div>
+</section>
+
+<!-- Gráfico de variação temporal -->
+<section class="chart-section">
+  <h2>Variação Temporal (últimas 10 leituras)</h2>
+  <canvas id="grafico" height="100"></canvas>
+</section>
+
+<!-- Tabela das últimas leituras -->
+<section>
+  <h2>Últimas Leituras</h2>
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Temperatura (°C)</th>
+        <th>Umidade (%)</th>
+        <th>Pressão (hPa)</th>
+        <th>Localização</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for l in leituras %}
+      <tr>
+        <td>{{ l.id }}</td>
+        <td>{{ l.temperatura }}</td>
+        <td>{{ l.umidade }}</td>
+        <td>{{ l.pressao or "—" }}</td>
+        <td>{{ l.localizacao }}</td>
+        <td>{{ l.timestamp }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="empty">Nenhuma leitura disponível.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn" href="{{ url_for('historico') }}">Ver histórico completo</a>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const leituras = {{ leituras | tojson }};
+  const labels   = leituras.map(l => l.timestamp).reverse();
+  const temps    = leituras.map(l => l.temperatura).reverse();
+  const umids    = leituras.map(l => l.umidade).reverse();
+
+  new Chart(document.getElementById("grafico"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Temperatura (°C)",
+          data: temps,
+          borderColor: "#e74c3c",
+          backgroundColor: "rgba(231,76,60,0.1)",
+          tension: 0.3,
+          fill: true,
+        },
+        {
+          label: "Umidade (%)",
+          data: umids,
+          borderColor: "#3498db",
+          backgroundColor: "rgba(52,152,219,0.1)",
+          tension: 0.3,
+          fill: true,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: "top" } },
+      scales: {
+        x: { ticks: { maxRotation: 45, minRotation: 30 } },
+        y: { beginAtZero: false },
+      },
+    },
+  });
+</script>
+{% endblock %}

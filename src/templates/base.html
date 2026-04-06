@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Estação Meteorológica{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <nav class="navbar">
+    <span class="nav-brand">&#127748; Estação Meteorológica</span>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('index') }}">Dashboard</a></li>
+      <li><a href="{{ url_for('historico') }}">Histórico</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>Inteli – Módulo 5 &mdash; Estação Meteorológica IoT</p>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
